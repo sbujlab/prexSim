@@ -4,7 +4,7 @@ import sys, os, time, tarfile
 
 def main():
 
-    email = "ciprian@jlab.org"
+    email = "cameronc@jlab.org"
 
     #configuration = "prexI"
     #configuration = "crex5"
@@ -12,15 +12,16 @@ def main():
     #configuration = "moller"
     #configuration = "happex2"
 
-    sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/ciprian/farmOut/dump/6inDonut_woSAMs"
+    #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
+    sourceDir = "/u/home/cameronc/gitdir/prexSim"
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/6inDonut_SAMs"
 
     nrEv   = 900000
     nrStart= 0
     nrStop = 60
 
     ###format should be _Name
-    identifier = "_6inDonut_noSAMs"
+    identifier = "_6inDonut_SAMs"
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
