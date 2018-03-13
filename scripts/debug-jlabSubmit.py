@@ -4,7 +4,6 @@ import sys, os, time, tarfile
 
 def main():
 
-#FIXME Update these
     email = "cameronc@jlab.org"
 
     #configuration = "prexI"
@@ -16,12 +15,13 @@ def main():
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
     outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/6inDonut_SAMs"
-    nrEv   = 900000
+
+    nrEv   = 1000 #900000
     nrStart= 0
-    nrStop = 60
+    nrStop = 4 #60
+
     ###format should be _Name
     identifier = "_6inDonut_SAMs"
-#</FIXME>
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
@@ -103,8 +103,8 @@ def createXMLfile(source,writeDir,idRoot,nStart,nStop,email):
     f.write("  <Email email=\""+email+"\" request=\"false\" job=\"true\"/>\n")
     f.write("  <Project name=\"prex\"/>\n")
 
-#    f.write("  <Track name=\"debug\"/>\n")
-    f.write("  <Track name=\"simulation\"/>\n")
+    f.write("  <Track name=\"debug\"/>\n")
+#    f.write("  <Track name=\"simulation\"/>\n")
 
     f.write("  <Name name=\""+idRoot+"\"/>\n")
     f.write("  <OS name=\"centos7\"/>\n")
