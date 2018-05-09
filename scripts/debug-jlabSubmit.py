@@ -14,21 +14,21 @@ def main():
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/6inDonut_SAMs"
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/debug_SAM_tests"
 
     nrEv   = 1000 #900000
     nrStart= 0
     nrStop = 4 #60
 
     ###format should be _Name
-    identifier = "_6inDonut_SAMs"
+    identifier = "SAMs_noFace"
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
-    jobName=configuration + identifier + '_%03dkEv'%(nrEv/1000)
+    jobName=configuration + '_' + identifier + '_%03dkEv'%(nrEv/1000)
 
     ###tar exec+geometry
-    make_tarfile(sourceDir,configuration+identifier)
+    make_tarfile(sourceDir,configuration,identifier)
 
     for nr in range(nrStart,nrStop): # repeat for nr jobs
         print("Starting job setup for jobID: " + str(nr))
@@ -42,7 +42,7 @@ def main():
 
     createXMLfile(sourceDir,outputDir,jobName,nrStart,nrStop,email)
 
-    print "All done for configuration ", configuration+identifier," for #s between ",nrStart, " and ", nrStop
+    print "All done for configuration ", configuration, "_", identifier," for #s between ",nrStart, " and ", nrStop
 
 
 def createMacFiles(config,outDir,sourceDir,nrEv,jobNr,identifier):
@@ -66,23 +66,23 @@ def createMacFiles(config,outDir,sourceDir,nrEv,jobNr,identifier):
     if config=="crex5":
         f.write("/gun/energy 2. GeV\n")
         f.write("/moller/field/setConfiguration crex\n")
-        f.write("/moller/det/setDetectorFileName geometry/crex5"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/crex5_"+identifier+".gdml\n")
     elif config=="prexII":
     	f.write("/gun/energy 1. GeV\n")
         f.write("/moller/field/setConfiguration prex2\n")
-        f.write("/moller/det/setDetectorFileName geometry/prexII"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/prexII_"+identifier+".gdml\n")
     elif config=="prexI":
     	f.write("/gun/energy 1. GeV\n")
         f.write("/moller/field/setConfiguration prex1\n")
-        f.write("/moller/det/setDetectorFileName geometry/prexI"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/prexI_"+identifier+".gdml\n")
     elif config=="moller":
     	f.write("/gun/energy 11. GeV\n")
         f.write("/moller/field/setConfiguration moller\n")
-        f.write("/moller/det/setDetectorFileName geometry/moller"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/moller_"+identifier+".gdml\n")
     elif config=="happex2":
     	f.write("/gun/energy 3. GeV\n")
         f.write("/moller/field/setConfiguration happex2\n")
-        f.write("/moller/det/setDetectorFileName geometry/happex2"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/happex2_"+identifier+".gdml\n")
 
     f.write("/moller/field/useQ1fringeField false\n")
 
@@ -132,14 +132,14 @@ def createXMLfile(source,writeDir,idRoot,nStart,nStop,email):
     f.close()
     return 0
 
-def make_tarfile(sourceDir,config):
+def make_tarfile(sourceDir,config,ident):
     print "making geometry tarball"
     if os.path.isfile(sourceDir+"/scripts/z_config.tar.gz"):
         os.remove(sourceDir+"/scripts/z_config.tar.gz")
     tar = tarfile.open(sourceDir+"/scripts/z_config.tar.gz","w:gz")
     tar.add(sourceDir+"/build/prexsim",arcname="prexsim")
     tar.add(sourceDir+"/geometry/schema",arcname="geometry/schema")
-    tar.add(sourceDir+"/geometry/"+config+".gdml" ,arcname="geometry/"+config+".gdml")
+    tar.add(sourceDir+"/geometry/"+config+"_"+ident+".gdml" ,arcname="geometry/"+config+"_"+ident+".gdml")
     tar.add(sourceDir+"/geometry/kriptoniteDetectors.gdml",arcname="geometry/kriptoniteDetectors.gdml")
     tar.add(sourceDir+"/geometry/kriptoniteDetectors_withHRS.gdml",arcname="geometry/kriptoniteDetectors_withHRS.gdml")
     tar.add(sourceDir+"/geometry/subQ1HosesCylRedesign.gdml",arcname="geometry/subQ1HosesCylRedesign.gdml")
@@ -169,6 +169,8 @@ def make_tarfile(sourceDir,config):
     tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
+    tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
+    tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
 
     tar.close()
 

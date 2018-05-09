@@ -1,2 +1,2 @@
-/moller/ana/rootfilename ./o_deleteME
-/run/beamOn 100
+/moller/ana/rootfilename ./out_noAl
+/run/beamOn 100000

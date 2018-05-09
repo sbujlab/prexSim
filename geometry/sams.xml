@@ -1,0 +1,18 @@
+    <constant name="sam_can_outer_r" value="1.92"/>
+    <constant name="sam_can_wall_thickness" value="0.15"/>
+    <constant name="sam_window_outer_r" value="1.92"/>
+    <constant name="sam_can_length" value="36. - 1.*sam_window_outer_r"/>
+    <constant name="sam_can_inner_r" value="sam_can_outer_r - sam_can_wall_thickness"/>
+    <constant name="sam_cut_height" value="sam_can_length + 0.01"/>
+    <position name="sam_cut_pos" unit="cm" x="0" y="0" z="0.5*sam_can_length - 0.5*sam_cut_height"/>
+    <constant name="sam_window_thickness" value="0.15"/>
+    <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>
+    <position name="sam_window_pos" unit="cm" x="0" y="0" z="-1*0.5*sam_can_length + 0*sam_window_outer_r"/>
+    <constant name="sam_quartz_height" value="1.3"/>
+    <constant name="sam_quartz_width" value="2."/>
+    <constant name="sam_quartz_length" value="3."/>
+    <constant name="sam_bot_face_sep" value="4.85 + sam_window_outer_r"/>
+    <constant name="sam_mid_dist" value="sam_bot_face_sep + sam_can_length/2."/>
+    <constant name="sam_quartz_bot_face" value="5.5"/>
+    <constant name="sam_quartz_mid_dist" value="sam_quartz_bot_face + sam_quartz_length/2."/>
+    <constant name="sam_z_pos" value="567.765"/>

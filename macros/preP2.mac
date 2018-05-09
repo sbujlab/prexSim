@@ -25,7 +25,8 @@
 /moller/field/useQ1fringeField false
 #### Geometry files
 #/moller/det/setDetectorFileName geometry/prexII_current.gdml
-/moller/det/setDetectorFileName geometry/prexII_newHRS.gdml
+/moller/det/setDetectorFileName geometry/prexII_SAMs_noAl.gdml
+#/moller/det/setDetectorFileName geometry/prexII_SAMs_alone.gdml
 
 
 /moller/det/setShieldMaterial polyethylene
