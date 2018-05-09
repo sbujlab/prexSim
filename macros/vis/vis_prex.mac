@@ -4,7 +4,7 @@
 #
 # Sets some default verbose
 #
-
+/control/execute macros/preP2.mac
 #/control/verbose 1
 
 #
