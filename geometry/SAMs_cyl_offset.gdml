@@ -57,11 +57,12 @@
     <constant name="sam_quartz_length" value="3."/>
     <constant name="sam_bot_face_sep" value="4.85"/>
     <constant name="sam_quartz_bot_face" value="5.5"/>
-<!--
-    <constant name="sam_mid_dist" value="sam_bot_face_sep + sam_can_length/2."/>
-    <constant name="sam_quartz_mid_dist" value="sam_quartz_bot_face + sam_quartz_length/2."/>
--->
     <constant name="sam_z_pos" value="567.765"/>
+<!--
+    <constant name="full_sam_r_outward_offset" value="10.0/10"/>
+    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>
+    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>
+-->
 
     &sams;
     
@@ -391,7 +392,7 @@
 
     <tube aunit="deg" startphi="0" deltaphi="360" lunit="cm" name="sam_cyl_mother_addition"
           rmin="0"
-          rmax="sam_bot_face_sep + sam_can_length*1.01"
+          rmax="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length*1.01"
           z="2.01*sam_can_outer_r"/>
 
     <box lunit="cm" name="sam_quartz_box_solid" x="sam_quartz_width" y="sam_quartz_height" z="sam_quartz_length"/>
