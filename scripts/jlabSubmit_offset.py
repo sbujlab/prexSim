@@ -17,7 +17,7 @@ def main():
     offset = raw_input("Please enter the offset in mm (integers up to 360): ")
 
     f = open('../geometry/SAMs_cyl_offset.xml', 'w')
-    fileout = '    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/1."/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>'
+    fileout = '    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>'
     f.write(fileout)
     f.close()
 
@@ -177,8 +177,8 @@ def make_tarfile(sourceDir,config,ident):
     tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
-#    tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
-#    tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
+    tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
+    tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
 
 
     tar.close()
