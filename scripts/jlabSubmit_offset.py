@@ -13,7 +13,13 @@ def main():
     #configuration = "moller"
     #configuration = "happex2"
 
-    identifier = raw_input("Please enter the identifier: ")
+    identifier = "SAMs_cyl_offset"#raw_input("Please enter the identifier: ")
+    offset = raw_input("Please enter the offset in mm (integers up to 360): ")
+
+    f = open('../geometry/SAMs_cyl_offset.xml', 'w')
+    fileout = '    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/1."/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>'
+    f.write(fileout)
+    f.close()
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
@@ -27,7 +33,7 @@ def main():
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
-    jobName=configuration + '_' + identifier + '_%03dkEv'%(nrEv/1000)
+    jobName=configuration + '_' + identifier + '_' + offset + 'mm' + '_%03dkEv'%(nrEv/1000)
 
     ###tar exec+geometry
     make_tarfile(sourceDir,configuration,identifier)
