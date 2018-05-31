@@ -26,7 +26,7 @@ def main():
     outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_offset_tests"
     nrEv   = 900000 #900000
     nrStart= 0
-    nrStop = 5 #60
+    nrStop = 10 #60
     ###format should be Name (removed _)
     #"SAMs_noAl" #6inDonut_SAMs"  (spherical, cylindrical, noFace, noAl, noQ, noQnoAl)
 #</FIXME>

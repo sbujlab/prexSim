@@ -13,14 +13,14 @@ def main():
     #configuration = "moller"
     #configuration = "happex2"
 
-    identifier = raw_input("Please enter the identifier: ")
+    identifier = '6inDonut_' + raw_input("Please enter the identifier: ")
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
     outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_offset_tests"
     nrEv   = 900000 #900000
     nrStart= 0
-    nrStop = 5 #60
+    nrStop = 60 #60
     ###format should be Name (removed _)
     #"SAMs_noAl" #6inDonut_SAMs"  (spherical, cylindrical, noFace, noAl, noQ, noQnoAl)
 #</FIXME>
