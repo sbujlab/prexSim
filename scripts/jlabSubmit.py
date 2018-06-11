@@ -17,7 +17,7 @@ def main():
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_offset_tests"
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_improved_tests"
     nrEv   = 900000 #900000
     nrStart= 0
     nrStop = 60 #60
@@ -171,8 +171,9 @@ def make_tarfile(sourceDir,config,ident):
     tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
-#    tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
-#    tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
+    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_SAMs_improvedSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_SAMs_improvedSAMs.gdml")
+    #tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
+    #tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
 
 
     tar.close()

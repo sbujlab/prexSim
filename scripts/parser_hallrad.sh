@@ -17,7 +17,7 @@ else
     strippedFront=${p//$front/}
     numberm=${strippedFront//'m_900kEv.xml'/}
     number=$(echo -n $numberm | head -c -1)
-    ./ls_${3}.sh $number
+    ./ls_${1}.sh $number
     #echo $number
   done <$user_list
 fi

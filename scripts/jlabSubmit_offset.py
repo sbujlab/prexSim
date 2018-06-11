@@ -13,17 +13,18 @@ def main():
     #configuration = "moller"
     #configuration = "happex2"
 
-    identifier = "SAMs_cyl_offset"#raw_input("Please enter the identifier: ")
+    stage = "improved"
+    identifier = "SAMs_sph_"+stage+"_offset"#raw_input("Please enter the identifier: ")
     offset = raw_input("Please enter the offset in mm (integers up to 360): ")
 
-    f = open('../geometry/SAMs_cyl_offset.xml', 'w')
+    f = open('../geometry/'+identifier+'.xml', 'w')
     fileout = '    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>'
     f.write(fileout)
     f.close()
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_offset_tests"
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_"+stage+"_tests"
     nrEv   = 900000 #900000
     nrStart= 0
     nrStop = 10 #60

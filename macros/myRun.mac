@@ -1,2 +1,2 @@
-/moller/ana/rootfilename ./out_noQ
-/run/beamOn 100000
+/moller/ana/rootfilename ./out_prexII_benchmark
+/run/beamOn 100
