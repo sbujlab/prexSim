@@ -49,10 +49,10 @@ def createXMLfile(source,writeDir,idRoot,name,listname,number,email):
     f.write("  <Email email=\""+email+"\" request=\"false\" job=\"true\"/>\n")
     f.write("  <Project name=\"prex\"/>\n")
 
-    f.write("  <Track name=\"debug\"/>\n")
+    f.write("  <Track name=\"analysis\"/>\n")
 #    f.write("  <Track name=\"analysis\"/>\n")
 
-    f.write("  <Name name=\""+idRoot+"_hallRad\"/>\n")
+    f.write("  <Name name=\""+name+"_hallRad\"/>\n")
     f.write("  <OS name=\"centos7\"/>\n")
     f.write("  <Memory space=\"3500\" unit=\"MB\"/>\n")
 
