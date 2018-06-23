@@ -13,11 +13,12 @@ elif [ $1 == "-m" ]; then
 else
   user_list=../../prexSim/scripts/list_${1}.txt
   while read p; do
-    front="jobs\/prexII_SAMs_cyl_${1}_"
+    front="jobs\/prexII_${1}_"
     strippedFront=${p//$front/}
     numberm=${strippedFront//'m_900kEv.xml'/}
     number=$(echo -n $numberm | head -c -1)
-    ./ls_${1}.sh $number
+    #./ls_${1}.sh $number
+    ./ls_mod.sh ${1} $number
     #echo $number
   done <$user_list
 fi
