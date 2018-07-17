@@ -23,11 +23,19 @@ void SAM_rad_calc(string modifier = "thickness",string units = "mm",int number =
 //use parserHallrad format to loop over files instead of doing it here
   TFile *file_in;
   string ben = "benchmark";
+  int nEvents = 9e6;//9e6 for regular runs, 54e6 for benchmark runs;
   if (units!=ben){ //case = doing parameter space searches
+    if (number==5 || number==6 || number==13) {
+      nEvents=360e6;
+    }
+    else if (number>6 && number<13) {
+      nEvents=90e6;
+    }
     //file_in = TFile::Open(Form("output/list_%s_%i%s_hallRad.root",modifier.c_str(),number,units.c_str()));
-    file_in = TFile::Open(Form("output/list_sph_%s_%i%s_hallRad.root",modifier.c_str(),number,units.c_str()));
+    file_in = TFile::Open(Form("output/list_%s_%i%s_hallRad.root",modifier.c_str(),number,units.c_str()));
   }
   else{ //case = benchmark
+    nEvents=450e6;
     file_in = TFile::Open(Form("output/list_%s_%s_hallRad.root",units.c_str(),modifier.c_str()));
   }
   
@@ -45,7 +53,7 @@ void SAM_rad_calc(string modifier = "thickness",string units = "mm",int number =
   Double_t NEIL_1001 = hist_hSummary_neilLogX->GetBinContent(hist_hSummary_neilLogX->GetXaxis()->FindBin("1001 Avg"));
   Double_t NEIL_1001_error = hist_hSummary_neilLogX->GetBinError(hist_hSummary_neilLogX->GetXaxis()->FindBin("1001 Avg"));
   Double_t Flux_1006 = hist_1006_n_enerLogX->Integral(hist_1006_n_enerLogX->GetXaxis()->FindBin(25.12),94);
-  Double_t Flux_1006_error = sqrt(Flux_1006/9e6);//9M events is the number per run that the averages normalize to
+  Double_t Flux_1006_error = sqrt(Flux_1006/nEvents);//9M events is the number per run that the averages normalize to
   Double_t Energy_3201 = hist_hSummary_enerLogX->GetBinContent(hist_hSummary_enerLogX->GetXaxis()->FindBin("3201 Avg"));
   Double_t Energy_3201_error = hist_hSummary_enerLogX->GetBinError(hist_hSummary_enerLogX->GetXaxis()->FindBin("3201 Avg"));
 
@@ -65,12 +73,13 @@ void SAM_rad_calc(string modifier = "thickness",string units = "mm",int number =
   Absolute per event: Neil in LHRS 1001 = 1.71573e-05(4.60409e-07), Flux of neutrons to 1006, per million events (E>25.12 MeV) = 1.28942e-05(1.19695e-06), Energy in 3201 = 0.023519(2.84886e-05)
   Relative per event: Neil in LHRS 1001 = 0.214791(0.00626292), Flux of neutrons to 1006, per million events (E>25.12 MeV) = 0.634963(0.061983), Energy 3201 = 0.216225(0.000295192)
 */
-  Double_t bench_NEIL_1001 = 1.05303e-5;
-  Double_t bench_NEIL_1001_error = 3.83341e-07;  // error propagation = sigma = value after modification * relative error of subparts added in quadratures (sigma/previous value)
-  Double_t bench_Flux_1006 = 1.27087e-05;
-  Double_t bench_Flux_1006_error = sqrt(bench_Flux_1006/54e6);//54M is the number of beam events per run that the averages normalize to
-  Double_t bench_Energy_3201 = 0.0112639;
-  Double_t bench_Energy_3201_error = 1.69927e-05;
+  //Absolute per event: Neil in LHRS 1001 = 1.0121e-05(1.28749e-07), Flux of neutrons to 1006, per million events (E>25.12 MeV) = 1.27963e-05(1.6863e-07), Energy in 3201 = 0.0113008(5.94492e-06)
+  Double_t bench_NEIL_1001 = 1.0121e-5;
+  Double_t bench_NEIL_1001_error = 1.28749e-07;  // error propagation = sigma = value after modification * relative error of subparts added in quadratures (sigma/previous value)
+  Double_t bench_Flux_1006 = 1.27963e-05;
+  Double_t bench_Flux_1006_error = 1.6863e-07 ;//54M is the number of beam events per run that the averages normalize to
+  Double_t bench_Energy_3201 = 0.0113008;
+  Double_t bench_Energy_3201_error = 5.94492e-06;
 
   Double_t NEIL_1001_ratio = NEIL_1001/bench_NEIL_1001;
   Double_t NEIL_1001_ratio_error = NEIL_1001_ratio*sqrt(pow(NEIL_1001_error/NEIL_1001,2)+pow(bench_NEIL_1001_error/bench_NEIL_1001,2));
