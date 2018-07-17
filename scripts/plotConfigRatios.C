@@ -48,7 +48,7 @@ vector<vector<string>> CSVParse(TString fileName)
 }
 
 void plotConfigRatios(string fileName = "NEIL_1001") {
-	string mode = "Benchmark";//"Modified"
+	string mode = "Modified";//"Benchmark";//"Modified"
 
 	// Format: thickness,mm,5,0.99041,0.0301189
 	vector<vector<string>> data = CSVParse(Form("output/SAM_analysis_%s.csv",fileName.c_str()));
