@@ -1,0 +1,5 @@
+    <constant name="full_sam_r_outward_offset" value="35.0/10 + 0*0.75"/>
+    <constant name="sam_quartz_height" value="6.0/10"/>
+    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>
+    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 0*0.75"/>
+    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>

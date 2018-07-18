@@ -8,29 +8,16 @@ def main():
     email = "cameronc@jlab.org"
 
     #configuration = "prexI"
-    configuration = "crex5"
-    #configuration = "prexII"
+    #configuration = "crex5"
+    configuration = "prexII"
     #configuration = "moller"
     #configuration = "happex2"
 
-    #stage = "final_shorterIn"
-    stage = "finals"
-    varied = "off_thickness"
-    geo = raw_input("Please enter the can geometry (sph or cyl): ")
-    offset = raw_input("Please enter the offset in mm (integers up to 360): ")
-    thickness = raw_input("Please enter the thickness in mm (integers up to 15): ")
-    identifier = "SAMs_"+geo+"_"+offset+varied#raw_input("Please enter the identifier: ")
-
-    f = open('../geometry/'+identifier+'.xml', 'w')
-    fileout = '    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10 + 0*0.75"/>\n    <constant name="sam_quartz_height" value="' + thickness + '.0/10"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 0*0.75"/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>'
-    f.write(fileout)
-    f.close()
+    identifier = '6inDonut_' + raw_input("Please enter the identifier: ")
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_"+stage+"_tests"
-    if not os.path.exists(outputDir):
-        os.makedirs(outputDir)
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_benchmark_tests"
     nrEv   = 900000 #900000
     nrStart= 0
     nrStop = 500 #60
@@ -40,7 +27,7 @@ def main():
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
-    jobName=configuration + '_' + identifier + '_' + thickness + 'mm' + '_%03dkEv'%(nrEv/1000)
+    jobName=configuration + '_' + identifier + '_%03dkEv'%(nrEv/1000)
 
     ###tar exec+geometry
     make_tarfile(sourceDir,configuration,identifier)
@@ -184,8 +171,8 @@ def make_tarfile(sourceDir,config,ident):
     tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
-    tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
-    tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
+    #tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
+    #tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
 
 
     tar.close()
