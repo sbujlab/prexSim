@@ -48,12 +48,12 @@ vector<vector<string>> CSVParse(TString fileName)
 }
 TCanvas * c1 = new TCanvas();
 TMultiGraph *mg = new TMultiGraph();
-bool alreadyDrew = false;
+int alreadyDrew = 0;
 void plotConfigRatiosHelper(string fileName = "NEIL_1001") {
 	string mode = "Modified"; // "Benchmark";//"Modified"
 
 	// Format: thickness,mm,5,0.99041,0.0301189
-	vector<vector<string>> data = CSVParse(Form("output/SAM_analysis_%s.csv",fileName.c_str()));
+	vector<vector<string>> data = CSVParse(Form("output/%s.csv",fileName.c_str()));
 	int len = data.size();
 	// Plot data
 	//   for each entry in the vector, open the sub-vector and print the modifier to the plot name (with the units)
@@ -124,43 +124,67 @@ void plotConfigRatiosHelper(string fileName = "NEIL_1001") {
 		graphBen->GetXaxis()->SetTitle(Form("Benchmarks"));
 		graphBen->GetYaxis()->SetTitle(Form("Relative %s",fileName.c_str()));
 		//graph->SetMarkerSize(.4);
-		if (alreadyDrew)
+		if (alreadyDrew>0)
 		{
-			graphBen->SetMarkerColor(2);
+			graphBen->SetMarkerColor(4-alreadyDrew);
 			graphBen->SetMarkerStyle(21);
 			mg->Add(graphBen);
 			mg->Draw("APEsame");
+			alreadyDrew++;
 		}
 		else{
 			mg->Add(graphBen);
 			mg->Draw("APE");
-			alreadyDrew=true;
+			alreadyDrew++;
 		}
 		c1->Update();
 		c1->SaveAs(Form("Plot_%s_%s.pdf",modifiersBen[0].c_str(),fileName.c_str()));
 	}
 	else{
 		TGraphErrors * graph = new TGraphErrors(len-nBen,newNumber,newValue,0,newError);
-		graph->SetTitle(Form("Plot of %s %s configurations, size %.1f to %.1f %s",fileName.c_str(),newModifiers[0].c_str(),numberMin,numberMax,newUnits[0].c_str()));
+		//graph->SetTitle(Form("Plot of %s %s configurations, size %.1f to %.1f %s",fileName.c_str(),newModifiers[0].c_str(),numberMin,numberMax,newUnits[0].c_str()));
+		graph->SetTitle(Form("%s",fileName.c_str()));
 		graph->SetMarkerColor(4);
 		graph->SetMarkerStyle(21);
-		graph->GetXaxis()->SetTitle(Form("%s %s",newModifiers[0].c_str(),newUnits[0].c_str()));
-		graph->GetYaxis()->SetTitle(Form("Relative %s",fileName.c_str()));
+        graph->Fit("pol1");
+        graph->SetLineColor(4-alreadyDrew);
+        graph->GetFunction("pol1")->SetLineColor(4-alreadyDrew);
+        gStyle->SetOptFit(0111);
+        gStyle->SetEndErrorSize(6);
 		//graph->SetMarkerSize(.4);
-		if (alreadyDrew)
+		if (alreadyDrew>0)
 		{
-			graph->SetMarkerColor(2);
+			graph->SetMarkerColor(4-alreadyDrew);
 			graph->SetMarkerStyle(21);
 			mg->Add(graph);
-			mg->Draw("APEsame");
+			mg->Draw("APE");//same");
+            alreadyDrew++;
 		}
 		else{
 			mg->Add(graph);
 			mg->Draw("APE");
-			alreadyDrew=true;
+		    mg->GetXaxis()->SetTitle(Form("%s radial offset (%s)",newModifiers[0].c_str(),newUnits[0].c_str()));
+		    mg->GetYaxis()->SetTitle("Relative to no SAMs     ");
+			alreadyDrew++;
 		}
+        int n = graph->GetN();
+        double* y = graph->GetY();
+        int locmax = TMath::LocMax(n,y);
+        double tmax = 1.05*y[locmax];
+        int locmin = TMath::LocMin(n,y);
+        double tmin = 0.95*y[locmin];
+        mg->SetMinimum(tmin);
+        mg->SetMaximum(tmax);
+        c1->BuildLegend(0.125,0.8,0.5,0.9);
 		c1->Update();
-		c1->SaveAs(Form("Plot_%s_%s.pdf",modifiers[4].c_str(),fileName.c_str()));
+        TPaveStats * stats = (TPaveStats*)graph->GetListOfFunctions()->FindObject("stats");
+        stats->SetTextColor(5-alreadyDrew);
+        stats->SetX1NDC(0.333*(alreadyDrew-1)); 
+        stats->SetX2NDC(0.333*alreadyDrew);
+        stats->SetY1NDC(0.9);
+        stats->SetY2NDC(1.0);
+		c1->Update();
+		c1->SaveAs(Form("Plot_%s.pdf",fileName.c_str()));
 	}
 	delete[] modifiers;
 	delete[] units;
@@ -172,9 +196,23 @@ void plotConfigRatiosHelper(string fileName = "NEIL_1001") {
 	delete[] errorBen;
 }
 
-void plotMultConfigRatios(int numLines = 1, string fileName1 = "NEIL_1001", string fileName2 = "NEIL_1001") {
-	plotConfigRatiosHelper(fileName1);
-	if (numLines>1){
-		plotConfigRatiosHelper(fileName2);
-	}
+void plotMultConfigRatios(int numLines = 0, string fileName1 = "NEIL_1001", string fileName2 = "NEIL_1001", string fileName3 = "NEIL_1001", string fileName4 = "NEIL_1001", string fileName5 = "NEIL_1001") {
+    if (numLines==0){
+        printf("USAGE: .x plotMultConfigRatios(int number of files,\"config names\",\"etc..\")\n");
+    }
+    else{
+        plotConfigRatiosHelper(fileName1);
+        if (numLines>1){
+            plotConfigRatiosHelper(fileName2);
+        }
+        if (numLines>2){
+            plotConfigRatiosHelper(fileName3);
+        }
+        if (numLines>3){
+            plotConfigRatiosHelper(fileName4);
+        }
+        if (numLines>4){
+            plotConfigRatiosHelper(fileName5);
+        }
+    }
 }
