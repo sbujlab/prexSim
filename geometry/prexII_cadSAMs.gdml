@@ -2466,8 +2466,8 @@
     <volume name="new_sc_beampipe_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="new_sc_beampipe_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3001"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3001"/>
+      -->      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
     </volume>
 
     <!-- New dual Scattering Chamber Shield -->
@@ -2481,23 +2481,23 @@
     <volume name="new_sc_prex_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="new_sc_prex_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3101"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3101"/>
+      -->      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
     </volume>
 
 
     <volume name="new_sc_crex_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="new_sc_crex_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3102"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3102"/>
+      -->      <!-- <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
     </volume>
 
     <volume name="sc_attach_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="sc_attach_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3103"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3103"/>
+      -->    </volume>
 
     <!-- Pylons for pics - Ricky -->
     <volume name="pylon_logic">
@@ -2508,8 +2508,8 @@
     <volume name="sc_attach_shield_logic">
       <materialref ref="Shield"/>
       <solidref ref="sc_attach_shield_8"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3111"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3111"/>
+      -->    </volume>
 
     <volume name="sc_oring_logic">
       <materialref ref="Aluminum"/>
@@ -2555,8 +2555,8 @@
     <volume name="sc_attach_hut_logic">
       <materialref ref="Shield"/>
       <solidref ref="sc_attach_hut_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3112"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3112"/>
+      -->    </volume>
     <volume name="hut_logic">
       <materialref ref="Shield"/>
       <solidref ref="hut_solid"/>
@@ -2565,8 +2565,8 @@
     <volume name="scatt_cham_shld_logic">
       <materialref ref="Shield"/>
       <solidref ref="scatt_cham_shld_solid"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN3113"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN3113"/>
+      -->    </volume>
     <volume name="septpipeShld_logic">
       <materialref ref="Shield"/>
       <solidref ref="septum_pipe_shield_3"/>
@@ -2632,8 +2632,8 @@
     <volume name="cDet_1_logic">
       <materialref ref="Vacuum"/>
       <solidref ref="cDet_1"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN2003"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN2003"/>
+      -->    </volume>
     <!-- <volume name="cDet_2_logic"> -->
     <!--   <materialref ref="Vacuum"/> -->
     <!--   <solidref ref="cDet_2"/> -->
@@ -2642,21 +2642,21 @@
     <volume name="cDet_3_logic">
       <materialref ref="Vacuum"/>
       <solidref ref="cDet_3"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN2005"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN2005"/>
+      -->    </volume>
 
     <!-- Collimator detectors -->
     <volume name="dDet_us_logic">
       <materialref ref="Vacuum"/>
       <!-- <materialref ref="matKryptonite"/> -->
       <solidref ref="dDet_us"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN2101"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN2101"/>
+      -->    </volume>
     <volume name="dDet_ds_logic">
       <materialref ref="Vacuum"/>
       <solidref ref="dDet_ds"/>
-      <auxiliary auxtype="SensDet" auxvalue="volumeN2102"/>
-    </volume>
+      <!--      <auxiliary auxtype="SensDet" auxvalue="volumeN2102"/>
+      -->    </volume>
 
 
     <volume name="sDet_2_logic">

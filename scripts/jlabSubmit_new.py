@@ -23,8 +23,8 @@ def main():
     can_thinner_length = raw_input("Please enter the can thin length in mm (integers from 0 to 60, or up to 340): ")
     identifier = "cadSAMs"#raw_input("Please enter the identifier: ")
 
-    f = open('../geometry/'+identifier+'.xml', 'w')
-    fileout = '<constant name="sam_can_wall_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_thinner_wall_length" value="' + can_thinner_length + '/10"/>\n    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10 + 0*0.75"/>\n    <constant name="sam_quartz_height" value="' + thickness + '.0/10"/>\n    <constant name="quartz_z_face_offset" value="1.2455"/>\n    <constant name="sam_can_face_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_window_thickness" value="sam_can_face_thickness"/>\n    <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>\n    <constant name="sam_bot_face_sep" value="sam_quartz_bot_face + sam_window_outer_r - sam_window_thickness - 1.*sqrt((sam_window_inner_r + 0.1)**2 - quartz_z_face_offset**2 - (0.5*sam_quartz_width)**2)"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 1*0.75"/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>\n'
+    f = open('../geometry/subBeamPipe_'+identifier+'.xml', 'w')
+    fileout = '    <constant name="sam_can_wall_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_thinner_wall_length" value="' + can_thinner_length + '/10"/>\n    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10 + 0*0.75"/>\n    <constant name="sam_quartz_height" value="' + thickness + '/10"/>\n    <constant name="quartz_z_face_offset" value="1.2455"/>\n    <constant name="sam_can_face_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_window_thickness" value="sam_can_face_thickness"/>\n    <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>\n    <constant name="sam_bot_face_sep" value="sam_quartz_bot_face + sam_window_outer_r - sam_window_thickness - 1.*sqrt((sam_window_inner_r + 0.1)**2 - quartz_z_face_offset**2 - (0.5*sam_quartz_width)**2)"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 1*0.75"/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>\n'
 
     f.write(fileout)
     f.close()
@@ -49,7 +49,7 @@ def main():
     make_tarfile(sourceDir,config,identifier)
 
     for jobNr in range(nrStart,nrStop): # repeat for jobNr jobs
-        print("Starting job setup for jobID: " + str(jobNr))
+        #print("Starting job setup for jobID: " + str(jobNr))
 
         jobFullName = jobName + '_%05d'%jobNr
         outDirFull=outDir+"/"+jobFullName

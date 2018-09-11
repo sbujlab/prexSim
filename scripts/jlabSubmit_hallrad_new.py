@@ -53,7 +53,7 @@ def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,lis
 
     f.write("  <Name name=\""+identifier+"_hallRad\"/>\n")
     f.write("  <OS name=\"centos7\"/>\n")
-    f.write("  <Memory space=\"3500\" unit=\"MB\"/>\n")
+    f.write("  <Memory space=\"950\" unit=\"MB\"/>\n")
 
     f.write("  <Command><![CDATA[\n")
     f.write("    pwd\n")
