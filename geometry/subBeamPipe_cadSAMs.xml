@@ -1,9 +1,10 @@
-    <constant name="sam_can_wall_thickness" value="30*25.4/10000.0"/>
-    <constant name="sam_can_thinner_wall_length" value="340/10"/>
-    <constant name="full_sam_r_outward_offset" value="45.0/10 + 0*0.75"/>
+    <constant name="sam_can_thicker_wall_thickness" value="0.1651"/><!-- Baseline was = 0.15 (should be 0.1651) -->
+    <constant name="sam_can_wall_thickness" value="10*25.4/10000.0"/>
+    <constant name="sam_can_thinner_wall_length" value="60/10"/>
+    <constant name="full_sam_r_outward_offset" value="35.0/10 + 0*0.75"/>
     <constant name="sam_quartz_height" value="6.0/10"/>
     <constant name="quartz_z_face_offset" value="1.2455"/>
-    <constant name="sam_can_face_thickness" value="30*25.4/10000.0"/>
+    <constant name="sam_can_face_thickness" value="10*25.4/10000.0"/>
     <constant name="sam_window_thickness" value="sam_can_face_thickness"/>
     <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>
     <constant name="sam_bot_face_sep" value="sam_quartz_bot_face + sam_window_outer_r - sam_window_thickness - 1.*sqrt((sam_window_inner_r + 0.1)**2 - quartz_z_face_offset**2 - (0.5*sam_quartz_width)**2)"/>

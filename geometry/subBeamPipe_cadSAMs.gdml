@@ -44,9 +44,8 @@
     <constant name="ring_length" value="5.08"/>
     <constant name="ring_cut_length" value="ring_length + 2.54"/>
     <constant name="ring_torus_r" value="54.53"/>
-    <constant name="sam_can_outer_r" value="1.92"/>
-    <constant name="sam_window_outer_r" value="1.92"/>
-    <constant name="sam_can_thicker_wall_thickness" value="0.1651"/><!-- Baseline was = 0.15 (should be 0.1651) -->
+    <constant name="sam_can_outer_r" value="1.905"/><!--1.92-->
+    <constant name="sam_window_outer_r" value="1.905"/><!--1.92-->
     <constant name="sam_can_length" value="36. - 1*sam_window_outer_r"/>
     <constant name="sam_cut_height" value="sam_can_length + 0.01"/>
     <position name="sam_cut_pos" unit="cm" x="0" y="0" z="0.5*sam_can_length - 0.5*sam_cut_height"/>
@@ -56,6 +55,8 @@
     <constant name="sam_quartz_bot_face" value="5.5"/>
     <constant name="sam_z_pos" value="567.765"/>
     <constant name="sqrt2" value="sqrt(2.)"/>
+    <!--
+    <constant name="sam_can_thicker_wall_thickness" value="0.1651"/>--><!-- Baseline was = 0.15 (should be 0.1651) -->
     <!--
     <constant name="sam_can_wall_thickness" value="0.0254"/>
     <constant name="sam_can_thinner_wall_length" value="6.0"/>
