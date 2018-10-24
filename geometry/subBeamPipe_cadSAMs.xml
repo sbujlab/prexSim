@@ -1,6 +1,6 @@
-    <constant name="sam_can_thicker_wall_thickness" value="0.1651"/><!-- Baseline was = 0.15 (should be 0.1651) -->
-    <constant name="sam_can_wall_thickness" value="10*25.4/10000.0"/>
-    <constant name="sam_can_thinner_wall_length" value="60/10"/>
+    <constant name="sam_can_thicker_wall_thickness" value="40*25.4/10000.0"/>
+    <constant name="sam_can_wall_thickness" value="40*25.4/10000.0"/>
+    <constant name="sam_can_thinner_wall_length" value="50/10"/>
     <constant name="full_sam_r_outward_offset" value="35.0/10 + 0*0.75"/>
     <constant name="sam_quartz_height" value="6.0/10"/>
     <constant name="quartz_z_face_offset" value="1.2455"/>
