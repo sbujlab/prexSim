@@ -20,8 +20,8 @@ def main():
     identifier = "cadSAMs"#raw_input("Please enter the identifier: ")
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
-    sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/masterPrexSim"
-    sourceMasterDir = "/work/halla/parity/disk1/moller12gev/cameronc/masterPrexSim"
+    sourceDir = "/work/halla/parity/disk1/cameronc/masterPrexSim"
+    sourceMasterDir = "/work/halla/parity/disk1/cameronc/masterPrexSim"
     outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_"+stage+"_hallRad"
     nrEv=900000
 
@@ -53,7 +53,7 @@ def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,lis
 
     f.write("  <Name name=\""+identifier+"_hallRad\"/>\n")
     f.write("  <OS name=\"centos7\"/>\n")
-    f.write("  <Memory space=\"950\" unit=\"MB\"/>\n")
+    f.write("  <Memory space=\"3500\" unit=\"MB\"/>\n")
 
     f.write("  <Command><![CDATA[\n")
     f.write("    pwd\n")

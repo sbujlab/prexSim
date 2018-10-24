@@ -17,10 +17,12 @@ def main():
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
     sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_improved_tests"
+    outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_finalShifted_E_tests"
+    if not os.path.exists(outputDir):
+        os.makedirs(outputDir)
     nrEv   = 900000 #900000
     nrStart= 0
-    nrStop = 60 #60
+    nrStop = 500 #60
     ###format should be Name (removed _)
     #"SAMs_noAl" #6inDonut_SAMs"  (spherical, cylindrical, noFace, noAl, noQ, noQnoAl)
 #</FIXME>
@@ -66,11 +68,13 @@ def createMacFiles(config,outDir,sourceDir,nrEv,jobNr,identifier):
     f.write("/random/setSeeds "+str(seedA)+" "+str(seedB)+"\n")
 
     if config=="crex5":
-        f.write("/gun/energy 2. GeV\n")
+        f.write("/gun/energy 2.22 GeV\n")
+                            #2.0
         f.write("/moller/field/setConfiguration crex\n")
         f.write("/moller/det/setDetectorFileName geometry/crex5_"+identifier+".gdml\n")
     elif config=="prexII":
-    	f.write("/gun/energy 1. GeV\n")
+    	f.write("/gun/energy 0.95 GeV\n")
+                            #1.0
         f.write("/moller/field/setConfiguration prex2\n")
         f.write("/moller/det/setDetectorFileName geometry/prexII_"+identifier+".gdml\n")
     elif config=="prexI":
@@ -160,7 +164,9 @@ def make_tarfile(sourceDir,config,ident):
     tar.add(sourceDir+"/geometry/subBeamPipe_MidVacuum.gdml",arcname="geometry/subBeamPipe_MidVacuum.gdml")
     tar.add(sourceDir+"/geometry/subBeamPipe_12GeV_SAMs.gdml",arcname="geometry/subBeamPipe_12GeV_SAMs.gdml")
     tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_SAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_SAMs.gdml")
+    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_newSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_newSAMs.gdml")
     tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_noSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_noSAMs.gdml")
+    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_noNewSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_noNewSAMs.gdml")
     tar.add(sourceDir+"/geometry/subDumpShield.gdml",arcname="geometry/subDumpShield.gdml")
     tar.add(sourceDir+"/geometry/subSkyShineShield.gdml",arcname="geometry/subSkyShineShield.gdml")
     tar.add(sourceDir+"/geometry/subDumpShield_cover.gdml",arcname="geometry/subDumpShield_cover.gdml")
@@ -171,7 +177,6 @@ def make_tarfile(sourceDir,config,ident):
     tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
     tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_SAMs_improvedSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_SAMs_improvedSAMs.gdml")
     #tar.add(sourceDir+"/geometry/"+ident+".gdml",arcname="geometry/"+ident+".gdml")
     #tar.add(sourceDir+"/geometry/"+ident+".xml",arcname="geometry/"+ident+".xml")
 

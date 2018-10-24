@@ -20,18 +20,19 @@ def main():
     offset = raw_input("Please enter the offset in mm (integers up to 360): ")
     thickness = "6.0"#raw_input("Please enter the thickness in mm (integers up to 15): ")
     thin_thickness = raw_input("Please enter the thin thickness in mils (integers from 10 to 65): ")
+    sph_thickness = raw_input("Please enter the sph thickness in mils (integers from 10 to 65): ")
     thick_thickness = raw_input("Please enter the thick thickness in mils (integers from 10 to 65): ")
     can_thinner_length = raw_input("Please enter the can thin length in mm (integers from 0 to 60, or up to 340): ")
     identifier = "cadSAMs"#raw_input("Please enter the identifier: ")
 
     f = open('../geometry/subBeamPipe_'+identifier+'.xml', 'w')
-    fileout = '    <constant name="sam_can_thicker_wall_thickness" value="' + thick_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_wall_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_thinner_wall_length" value="' + can_thinner_length + '/10"/>\n    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10 + 0*0.75"/>\n    <constant name="sam_quartz_height" value="' + thickness + '/10"/>\n    <constant name="quartz_z_face_offset" value="1.2455"/>\n    <constant name="sam_can_face_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_window_thickness" value="sam_can_face_thickness"/>\n    <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>\n    <constant name="sam_bot_face_sep" value="sam_quartz_bot_face + sam_window_outer_r - sam_window_thickness - 1.*sqrt((sam_window_inner_r + 0.1)**2 - quartz_z_face_offset**2 - (0.5*sam_quartz_width)**2)"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 1*0.75"/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>\n'
+    fileout = '    <constant name="sam_can_thicker_wall_thickness" value="' + thick_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_wall_thickness" value="' + thin_thickness + '*25.4/10000.0"/>\n    <constant name="sam_can_thinner_wall_length" value="' + can_thinner_length + '/10"/>\n    <constant name="full_sam_r_outward_offset" value="' + offset + '.0/10 + 0*0.75"/>\n    <constant name="sam_quartz_height" value="' + thickness + '/10"/>\n    <constant name="quartz_z_face_offset" value="1.2455"/>\n    <constant name="sam_can_face_thickness" value="' + sph_thickness + '*25.4/10000.0"/>\n    <constant name="sam_window_thickness" value="sam_can_face_thickness"/>\n    <constant name="sam_window_inner_r" value="sam_window_outer_r - sam_window_thickness"/>\n    <constant name="sam_bot_face_sep" value="sam_quartz_bot_face + sam_window_outer_r - sam_window_thickness - 1.*sqrt((sam_window_inner_r + 0.1)**2 - quartz_z_face_offset**2 - (0.5*sam_quartz_width)**2)"/>\n    <constant name="sam_mid_dist" value="full_sam_r_outward_offset + sam_bot_face_sep + sam_can_length/2."/>\n    <constant name="sam_quartz_length" value="2.0 + sam_quartz_height - 1*0.75"/>\n    <constant name="sam_quartz_mid_dist" value="full_sam_r_outward_offset + sam_quartz_bot_face + sam_quartz_length/2."/>\n'
 
     f.write(fileout)
     f.close()
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
-    sourceDir = "/work/halla/parity/disk1/moller12gev/cameronc/prexSim"
+    sourceDir = "/work/halla/parity/disk1/cameronc/prexSim"
     outDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_"+stage+"_tests"
     if not os.path.exists(outDir):
         os.makedirs(outDir)
@@ -44,7 +45,7 @@ def main():
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
-    jobName=config + '_' + identifier + '_' + varied + '_' + offset + 'mm' + '_%03dkEv'%(nrEv/1000)
+    jobName=config + '_' + identifier + '_' + varied + '_' + thin_thickness + 'mm' + '_%03dkEv'%(nrEv/1000)
 
     ###tar exec+geometry
     make_tarfile(sourceDir,config,identifier)
@@ -70,7 +71,7 @@ def createMacFiles(config,outDirFull,sourceDir,nrEv,jobNr,identifier):
     if not os.path.exists(outDirFull+"/log"):
         os.makedirs(outDirFull+"/log")
 
-    f=open(outDirFull+"/"+"/myRun.mac",'w')
+    f=open(outDirFull+"/"+"myRun.mac",'w')
     f.write("/moller/ana/rootfilename ./o_prexSim\n")
     f.write("/run/beamOn "+str(nrEv)+"\n")
     f.close()
