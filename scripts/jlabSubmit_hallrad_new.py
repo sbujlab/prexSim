@@ -59,6 +59,7 @@ def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,uni
 
     f.write("  <Command><![CDATA[\n")
     f.write("    pwd\n")
+    f.write("    source /site/12gev_phys/softenv.csh 2.0\n")
     f.write("    ./ls_mode.sh " + varied + " " + offset + " " + stage + " " + units + "\n")
     
     f.write("  ]]></Command>\n")

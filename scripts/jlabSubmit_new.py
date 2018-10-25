@@ -45,7 +45,7 @@ def main():
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
-    jobName=config + '_' + identifier + '_' + varied + '_' + thin_thickness + 'mm' + '_%03dkEv'%(nrEv/1000)
+    jobName=config + '_' + identifier + '_' + varied + '_' + thin_thickness + 'ml' + '_%03dkEv'%(nrEv/1000)
 
     ###tar exec+geometry
     make_tarfile(sourceDir,config,identifier)
