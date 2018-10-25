@@ -16,7 +16,9 @@ def main():
     stage = "new"
     varied = raw_input("Please enter the indicative name: ")#"off_thickness"
     #geo = raw_input("Please enter the can geometry (sph or cyl): ")
-    offset = raw_input("Please enter the offset in mm (integers up to 360): ")
+    offset = raw_input("Please enter the offset number (integers): ")
+    units = raw_input("Please enter the units (2 characters: mm, ml, etc.): ") 
+
     identifier = "cadSAMs"#raw_input("Please enter the identifier: ")
 
     #sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
@@ -25,12 +27,12 @@ def main():
     outputDir = "/lustre/expphy/volatile/halla/parity/cameronc/prexSim/output/SAM_"+stage+"_hallRad"
     nrEv=900000
 
-    jobName=configuration + '_' + identifier + '_' + varied + '_' + offset + 'mm' + '_%03dkEv'%(nrEv/1000)
-    listName='list_' + identifier + '_' + varied + '_' + offset + 'mm'
+    jobName=configuration + '_' + identifier + '_' + varied + '_' + offset + units + '_%03dkEv'%(nrEv/1000)
+    listName='list_' + identifier + '_' + varied + '_' + offset + units
 
     if not os.path.exists(outputDir+"/"+jobName+"/log"):
         os.makedirs(outputDir+"/"+jobName+"/log")
-    createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,listName,email)
+    createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,units,listName,email)
 
     call(["cp",sourceDir+"/output/ls_mode.sh",
               outputDir+"/"+jobName+"/ls_mode.sh"])
@@ -38,7 +40,7 @@ def main():
               outputDir+"/"+jobName+"/hallRad"])
     print "All done for configuration ",configuration,"_",identifier,"for",offset
 
-def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,listName,email):
+def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,units,listName,email):
 
     if not os.path.exists(sourceDir+"/output/jobs"):
         os.makedirs(sourceDir+"/output/jobs")
@@ -57,7 +59,7 @@ def createXMLfile(sourceDir,outputDir,jobName,varied,stage,identifier,offset,lis
 
     f.write("  <Command><![CDATA[\n")
     f.write("    pwd\n")
-    f.write("    ./ls_mode.sh " + varied + " " + offset + " " + stage + "\n")
+    f.write("    ./ls_mode.sh " + varied + " " + offset + " " + stage + " " + units + "\n")
     
     f.write("  ]]></Command>\n")
 
