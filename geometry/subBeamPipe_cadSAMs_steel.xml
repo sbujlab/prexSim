@@ -1,5 +1,5 @@
-    <constant name="sam_can_thicker_wall_thickness" value="40*25.4/10000.0"/>
-    <constant name="sam_can_wall_thickness" value="10*25.4/10000.0"/> <!-- This is the taper part, and it is saved here as 10 mills (the taper goes from 10 to 40 mills).
+    <constant name="sam_can_thicker_wall_thickness" value="50*25.4/10000.0"/>
+    <constant name="sam_can_wall_thickness" value="10*25.4/10000.0"/>
     <constant name="sam_can_thinner_wall_length" value="50/10"/>
     <constant name="full_sam_r_outward_offset" value="35.0/10 + 0*0.75"/>
     <constant name="sam_quartz_height" value="6.0/10"/>
