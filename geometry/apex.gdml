@@ -13,7 +13,7 @@
 
     <constant name="real_sc_thick_4" value="0.5"/> <!-- QT will fail for values less than 0.2 REAL VALUE=0.05-->
 
-    <constant name="fTargetLength" value="20.0"/>
+    <constant name="fTargetLength" value="0.05"/>
 
     <constant name="fDeltaCaTargetZ" value="0."/>
     <constant name="fcollInnerR" value="1.905"/>
@@ -497,7 +497,6 @@
               y="-1.*arm_dipole_center_y"
               z="1.*center_cylwall -40.0" />
 
-
   </define>
 
   &materials;
@@ -535,7 +534,10 @@
     </subtraction>
 
     <!-- Target  -->
-    <tube aunit="deg" startphi="0" deltaphi="360" lunit="cm" name="tubeTarget" rmin="inner_rad_targ" rmax="outer_rad_targ" z="length_targ" />
+    <tube aunit="deg" startphi="0" deltaphi="360" lunit="mm" name="tubeTargetW"
+	  rmin="inner_rad_targ" rmax="outer_rad_targ*5" z="0.105" />
+    <tube aunit="deg" startphi="0" deltaphi="360" lunit="mm" name="tubeTargetTa"
+	  rmin="inner_rad_targ" rmax="outer_rad_targ*5" z="0.120" />
 
     <!-- Scattering Chamber -->
     <tube aunit="deg" startphi="0" deltaphi="360" lunit="cm" name="outScattChamber" rmin="0.0" rmax="outer_r_sc" z="height_sc" />
@@ -708,6 +710,14 @@
       <positionref ref="real_hole_sc_trans6"/>
       <rotationref ref="identity"/>
     </union>
+
+    <box lunit="cm" name="skyDetBottom_solid0" x="130" y="0.1" z="500"/>
+    <subtraction name ="skyDetBottom_solid">
+      <first ref="skyDetBottom_solid0"/>
+      <second ref="scatt_w_holes"/>
+      <position name="pos_rel_skyDetBottom_ScattCh" unit="cm" x="0" y="-0.66" z="-17.67"/>
+      <rotationref ref="scRot_1"/>
+    </subtraction>
 
 
     <box lunit="cm" name="sc_attach_o" x="width_sc_attach" y="height_sc_attach" z="length_sc_attach"/>
@@ -1496,62 +1506,48 @@
 
   <structure>
 
-    <volume name="W_coll_logic">
-      <materialref ref="Tungsten"/>
-      <solidref ref="collWSolid"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5001"/> -->
+    <volume name="target_logicW">
+      <materialref ref="G4_W"/>
+      <solidref ref="tubeTargetW"/>
     </volume>
 
-    <volume name="target_logic">
-      <materialref ref="H2Liquid"/>
-      <solidref ref="tubeTarget"/>
+    <volume name="target_logicTa">
+      <materialref ref="G4_Ta"/>
+      <solidref ref="tubeTargetTa"/>
     </volume>
-    <!--
-        <volume name="scDet_logic">
-        <materialref ref="Vacuum"/>
-        <solidref ref="ScattChamberDet"/>
-        <auxiliary auxtype="SensDet" auxvalue="planeDet"/>
-        </volume>
-    -->
+
     <volume name="sc_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="scatt_w_holes"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5004"/> -->
     </volume>
+
     <volume name="sc_attach_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="sc_attach_solid"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5005"/> -->
     </volume>
 
     <volume name="sc_oring_logic">
       <materialref ref="Aluminum"/>
       <solidref ref="sc_oring_solid"/>
-      <!--      <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
     </volume>
     <volume name="sc_oringDet_logic">
       <materialref ref="Vacuum"/>
       <solidref ref="sc_oring_det_solid"/>
-      <!--      <auxiliary auxtype="SensDet" auxvalue="planeDet"/> -->
     </volume>
 
     <volume name="septum_logic">
       <materialref ref="Iron"/>
       <solidref ref="septum_solid"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5006"/> -->
     </volume>
 
     <volume name="septum_pipe_logic">
       <materialref ref="StainlessSteel"/>
       <solidref ref="septum_pipe_tube"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5007"/> -->
     </volume>
 
     <volume name="beamtube_1_logic">
       <materialref ref="Aluminum"/>
-      <!-- <materialref ref="Tungsten"/> -->
       <solidref ref="beamtube_1"/>
-      <!-- <auxiliary auxtype="SensDet" auxvalue="volumeN5008"/> -->
     </volume>
 
 
@@ -1662,29 +1658,11 @@
       <auxiliary auxtype="SensDet" auxvalue="volumeN8005"/>
     </volume>
 
-    <!-- <volume name="dDet_beamline_1_logic"> -->
-    <!--   <materialref ref="Vacuum"/> -->
-    <!--   <solidref ref="dDet_beamline_1"/> -->
-    <!--   <auxiliary auxtype="SensDet" auxvalue="volumeN10001"/> -->
-    <!-- </volume> -->
-
-    <!-- <volume name="dDet_beamline_2_logic"> -->
-    <!--   <materialref ref="Vacuum"/> -->
-    <!--   <solidref ref="dDet_beamline_2"/> -->
-    <!--   <auxiliary auxtype="SensDet" auxvalue="volumeN10002"/> -->
-    <!-- </volume> -->
-
-    <!-- <volume name="dDet_beamline_3_logic"> -->
-    <!--   <materialref ref="Vacuum"/> -->
-    <!--   <solidref ref="dDet_beamline_3"/> -->
-    <!--   <auxiliary auxtype="SensDet" auxvalue="volumeN10003"/> -->
-    <!-- </volume> -->
-
-    <!-- <volume name="dDet_beamline_4_logic"> -->
-    <!--   <materialref ref="Vacuum"/> -->
-    <!--   <solidref ref="dDet_beamline_4"/> -->
-    <!--   <auxiliary auxtype="SensDet" auxvalue="volumeN10004"/> -->
-    <!-- </volume> -->
+    <volume name="skyDetBottom_logic">
+      <materialref ref="Vacuum"/>
+      <solidref ref="skyDetBottom_solid"/>
+      <auxiliary auxtype="SensDet" auxvalue="volumeN3120"/>
+    </volume>
 
     <!-- dipoles  -->
     <volume name="dipole_logic_1">
@@ -1700,14 +1678,14 @@
       <materialref ref="Vacuum"/>
       <solidref ref="boxMother"/>
 
-      <physvol name="collimator">
-        <volumeref ref="W_coll_logic"/>
-        <positionref ref="coll_center"/>
+      <physvol name="targetW">
+        <volumeref ref="target_logicW"/>
+        <position name="target_posW" unit="mm" x="0" y="0" z="-1000.053"/>
       </physvol>
 
-      <physvol name="target">
-        <volumeref ref="target_logic"/>
-        <positionref ref="targ_center"/>
+      <physvol name="targetTa">
+        <volumeref ref="target_logicTa"/>
+        <position name="target_posTa" unit="mm" x="0" y="0" z="-999.94"/>
       </physvol>
 
       <physvol name="sc_other_1">
@@ -1729,11 +1707,6 @@
         <volumeref ref="septum_pipe_logic" />
         <position name="posbeamline" unit="cm" x="0" y="0" z="center_septum_pipe"/>
       </physvol>
-
-      <!-- <physvol name="beam_pipe_1"> -->
-      <!--   <volumeref ref="beamtube_1_logic" /> -->
-      <!--   <position name="posbeamline_1" unit="cm" x="0" y="0" z="center_septum_pipe+length_septum_pipe/2+0.5*(beamline[3,1]+beamline[3,2]+beamline[3,3]+beamline[3,4]+beamline[3,5]+beamline[3,6]+beamline[3,7]+beamline[3,8]+beamline[3,9]+beamline[3,10]+beamline[3,11]+beamline[3,12]+beamline[3,13])"/> -->
-      <!-- </physvol> -->
 
       <physvol name="vacEnc_l">
         <volumeref ref="vac_enc_l_logic"/>
@@ -1760,10 +1733,6 @@
         <volumeref ref="dump_logic"/>
         <positionref ref="dump_center"/>
       </physvol>
-      <!-- <physvol name="ssenc"> -->
-      <!--   <volumeref ref="ssenc_logic"/> -->
-      <!--   <positionref ref="ssenc_cylcenter"/> -->
-      <!-- </physvol> -->
 
       <physvol name="ped_union">
         <volumeref ref="ped_union_logic"/>
@@ -1800,11 +1769,7 @@
         <positionref ref="cDet_1_pos"/>
         <rotationref ref="scRot_1"/>
       </physvol>
-      <!-- <physvol name="cyl_det_2"> -->
-      <!--   <volumeref ref="cDet_2_logic"/> -->
-      <!--   <positionref ref="cDet_1_pos"/> -->
-      <!--   <rotationref ref="scRot_1"/> -->
-      <!-- </physvol> -->
+
       <physvol name="cyl_det_3">
         <volumeref ref="cDet_3_logic"/>
         <positionref ref="cDet_1_pos"/>
@@ -1820,26 +1785,6 @@
         <volumeref ref="dDet_ds_logic"/>
         <positionref ref="dDet_ds_pos"/>
       </physvol>
-
-      <!-- <physvol name="beamline_1_det"> -->
-      <!--   <volumeref ref="dDet_beamline_1_logic"/> -->
-      <!--   <positionref ref="dDet_beamline_pos_1"/> -->
-      <!-- </physvol> -->
-
-      <!-- <physvol name="beamline_2_det"> -->
-      <!--   <volumeref ref="dDet_beamline_2_logic"/> -->
-      <!--   <positionref ref="dDet_beamline_pos_2"/> -->
-      <!-- </physvol> -->
-
-      <!-- <physvol name="beamline_3_det"> -->
-      <!--   <volumeref ref="dDet_beamline_3_logic"/> -->
-      <!--   <positionref ref="dDet_beamline_pos_3"/> -->
-      <!-- </physvol> -->
-
-      <!-- <physvol name="beamline_4_det"> -->
-      <!--   <volumeref ref="dDet_beamline_4_logic"/> -->
-      <!--   <positionref ref="dDet_beamline_pos_4"/> -->
-      <!-- </physvol> -->
 
       <physvol name="dipole_left">
         <volumeref ref="dipole_logic_1"/>
@@ -1860,7 +1805,8 @@
       </physvol>
 
       <physvol>
-        <file name="geometry/subBeamPipe_P1.gdml"/>
+        <file name="geometry/subBeamPipe_P2_6inDonut_SAMs.gdml"/>
+        <!--<file name="geometry/subBeamPipe_12GeV_SAMs.gdml"/>-->
         <positionref ref="dDet_beamline_pos_1"/>
       </physvol>
 
@@ -1874,6 +1820,11 @@
         <file name="geometry/subRightHRSplatform.gdml"/>
         <position name="rHRSplatform_pos" unit="cm" x="-467.3" y="42.5" z="2107.8"/>
         <rotation name="rHRSplatform_rot" unit="deg" x="0" y="12.5" z="0"/>
+      </physvol>
+
+      <physvol>
+        <file name="geometry/subDumpShield.gdml"/>
+        <position name="dumpShield_posRel" unit="cm" x="0" y="-115" z="2450"/>
       </physvol>
 
     </volume>

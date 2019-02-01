@@ -1,26 +1,26 @@
 #!/usr/bin/python
 from subprocess import call
-import sys, os, time, tarfile
+import sys, os, time, tarfile, glob
 
 def main():
 
     email = "ciprian@jlab.org"
 
-    #configuration = "prexI"
-    #configuration = "crex5"
-    configuration = "prexII"
-    #configuration = "moller"
+    #configuration = "prex1"
+    #configuration = "crex"
+    #configuration = "prex2"
+    configuration = "apex"
     #configuration = "happex2"
 
     sourceDir = "/work/halla/parity/disk1/ciprian/prexSim"
-    outputDir = "/lustre/expphy/volatile/halla/parity/ciprian/farmOut/dump/6inDonut_woSAMs"
+    outputDir = "/volatile/halla/parity/ciprian/farmOut/apex/12GeV_beampipe_6inDonut"
 
     nrEv   = 900000
     nrStart= 0
     nrStop = 60
 
-    ###format should be _Name
-    identifier = "_6inDonut_noSAMs"
+    ###format should be _Name or "" for base config
+    identifier = ""
 
     print('Running ' + str(nrEv*(nrStop - nrStart)) + ' events...')
 
@@ -62,26 +62,42 @@ def createMacFiles(config,outDir,sourceDir,nrEv,jobNr,identifier):
     seedB=long(time.time()*100+jobNr)
     f.write("/random/setSeeds "+str(seedA)+" "+str(seedB)+"\n")
 
-    if config=="crex5":
-        f.write("/gun/energy 2. GeV\n")
+    if config=="crex":
+        f.write("/gun/energy 2.22 GeV\n")
+        f.write("/prex/gun/setRasterX 1 mm\n")
+        f.write("/prex/gun/setRasterY 4 mm\n")
         f.write("/moller/field/setConfiguration crex\n")
-        f.write("/moller/det/setDetectorFileName geometry/crex5"+identifier+".gdml\n")
-    elif config=="prexII":
-    	f.write("/gun/energy 1. GeV\n")
+        f.write("/moller/det/setDetectorFileName geometry/crex"+identifier+".gdml\n")
+    elif config=="prex2":
+    	f.write("/gun/energy 0.95 GeV\n")
+        f.write("/prex/gun/setRasterX 4 mm\n")
+        f.write("/prex/gun/setRasterY 4 mm\n")
         f.write("/moller/field/setConfiguration prex2\n")
-        f.write("/moller/det/setDetectorFileName geometry/prexII"+identifier+".gdml\n")
-    elif config=="prexI":
-    	f.write("/gun/energy 1. GeV\n")
+        f.write("/moller/det/setDetectorFileName geometry/prex2"+identifier+".gdml\n")
+    elif config=="prex1":
+    	f.write("/gun/energy 1.06 GeV\n")
+        f.write("/prex/gun/setRasterX 6 mm\n")
+        f.write("/prex/gun/setRasterY 4 mm\n")
         f.write("/moller/field/setConfiguration prex1\n")
-        f.write("/moller/det/setDetectorFileName geometry/prexI"+identifier+".gdml\n")
+        f.write("/moller/det/setDetectorFileName geometry/prex1"+identifier+".gdml\n")
     elif config=="moller":
     	f.write("/gun/energy 11. GeV\n")
+        f.write("/prex/gun/setRasterX 5 mm\n")
+        f.write("/prex/gun/setRasterY 5 mm\n")
         f.write("/moller/field/setConfiguration moller\n")
         f.write("/moller/det/setDetectorFileName geometry/moller"+identifier+".gdml\n")
     elif config=="happex2":
     	f.write("/gun/energy 3. GeV\n")
+        f.write("/prex/gun/setRasterX 5 mm\n")
+        f.write("/prex/gun/setRasterY 5 mm\n")
         f.write("/moller/field/setConfiguration happex2\n")
         f.write("/moller/det/setDetectorFileName geometry/happex2"+identifier+".gdml\n")
+    elif config=="apex":
+    	f.write("/gun/energy 2.2 GeV\n")
+        f.write("/prex/gun/setRasterX 4 mm\n")
+        f.write("/prex/gun/setRasterY 4 mm\n")
+        f.write("/moller/field/setConfiguration apex\n")
+        f.write("/moller/det/setDetectorFileName geometry/apex"+identifier+".gdml\n")
 
     f.write("/moller/field/useQ1fringeField false\n")
 
@@ -107,7 +123,7 @@ def createXMLfile(source,writeDir,idRoot,nStart,nStop,email):
 
     f.write("  <Name name=\""+idRoot+"\"/>\n")
     f.write("  <OS name=\"centos7\"/>\n")
-    f.write("  <Memory space=\"3500\" unit=\"MB\"/>\n")
+    f.write("  <Memory space=\"4500\" unit=\"MB\"/>\n")
 
     f.write("  <Command><![CDATA[\n")
     f.write("    pwd\n")
@@ -139,35 +155,13 @@ def make_tarfile(sourceDir,config):
     tar.add(sourceDir+"/build/prexsim",arcname="prexsim")
     tar.add(sourceDir+"/geometry/schema",arcname="geometry/schema")
     tar.add(sourceDir+"/geometry/"+config+".gdml" ,arcname="geometry/"+config+".gdml")
-    tar.add(sourceDir+"/geometry/kriptoniteDetectors.gdml",arcname="geometry/kriptoniteDetectors.gdml")
-    tar.add(sourceDir+"/geometry/kriptoniteDetectors_withHRS.gdml",arcname="geometry/kriptoniteDetectors_withHRS.gdml")
-    tar.add(sourceDir+"/geometry/subQ1HosesCylRedesign.gdml",arcname="geometry/subQ1HosesCylRedesign.gdml")
-    tar.add(sourceDir+"/geometry/subTargetChamber.gdml",arcname="geometry/subTargetChamber.gdml")
-    tar.add(sourceDir+"/geometry/subCollShields.gdml",arcname="geometry/subCollShields.gdml")
-    tar.add(sourceDir+"/geometry/prex1Beampipe.gdml",arcname="geometry/prex1Beampipe.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe.gdml",arcname="geometry/subBeamPipe.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_fatP2end.gdml",arcname="geometry/subBeamPipe_fatP2end.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_4inDonut.gdml",arcname="geometry/subBeamPipe_4inDonut.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_noDonut.gdml",arcname="geometry/subBeamPipe_noDonut.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_steelTelePipe.gdml",arcname="geometry/subBeamPipe_steelTelePipe.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipeMoller.gdml",arcname="geometry/subBeamPipeMoller.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipeMoller_fatP2end.gdml",arcname="geometry/subBeamPipeMoller_fatP2end.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipeMoller_4inDonut.gdml",arcname="geometry/subBeamPipeMoller_4inDonut.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipeMoller_noDonut.gdml",arcname="geometry/subBeamPipeMoller_noDonut.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_MidVacuum.gdml",arcname="geometry/subBeamPipe_MidVacuum.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_12GeV_SAMs.gdml",arcname="geometry/subBeamPipe_12GeV_SAMs.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_SAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_SAMs.gdml")
-    tar.add(sourceDir+"/geometry/subBeamPipe_6inDonut_noSAMs.gdml",arcname="geometry/subBeamPipe_6inDonut_noSAMs.gdml")
-    tar.add(sourceDir+"/geometry/subDumpShield.gdml",arcname="geometry/subDumpShield.gdml")
-    tar.add(sourceDir+"/geometry/subSkyShineShield.gdml",arcname="geometry/subSkyShineShield.gdml")
-    tar.add(sourceDir+"/geometry/subDumpShield_cover.gdml",arcname="geometry/subDumpShield_cover.gdml")
-    tar.add(sourceDir+"/geometry/subDumpShield_2layer.gdml",arcname="geometry/subDumpShield_2layer.gdml")
-    tar.add(sourceDir+"/geometry/materials.xml",arcname="geometry/materials.xml")
-    tar.add(sourceDir+"/geometry/subHRSplatform.gdml",arcname="geometry/subHRSplatform.gdml")
-    tar.add(sourceDir+"/geometry/subHRSplatform_withShield.gdml",arcname="geometry/subHRSplatform_withShield.gdml")
-    tar.add(sourceDir+"/geometry/mollerDScollAndCoils.gdml",arcname="geometry/mollerDScollAndCoils.gdml")
-    tar.add(sourceDir+"/geometry/mollerUScollAndCoils.gdml",arcname="geometry/mollerUScollAndCoils.gdml")
-    tar.add(sourceDir+"/geometry/mollerDet.gdml",arcname="geometry/mollerDet.gdml")
+    tar.add(sourceDir+"/geometry/materials.xml" ,arcname="geometry/materials.xml")
+
+    subFiles = glob.glob(sourceDir+"/geometry/sub*.gdml")
+    for fileNm in subFiles:
+        pos = fileNm.rfind("/")
+        filename = fileNm[pos:]
+        tar.add(fileNm,arcname="geometry"+filename)
 
     tar.close()
 

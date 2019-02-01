@@ -12,21 +12,20 @@
 /random/setSeeds 123515 9816459
 
 ############
-#CREX:
-#E=2 GeV, T = calcium (0.6cm) target
-#Septum, “cut” septum fringe (only at larger |z| values), fringe scale = 1.
-#PREX-II collimator.  Latest shielding.
+#APEX:
+#E=2.2 GeV, T = W/Ta 7/10 (each target is 15/12 um)
+#no septum fringe field, no q1 fringe filed
 ############
 #### beam energy
-/gun/energy 2.22 GeV ##CREX
+/gun/energy 2.22 GeV ##APEX
 #### Rastser size
 /prex/gun/setRasterX 4 cm
 /prex/gun/setRasterY 4 cm
-#### Set B field configuration (prex1, prex2, crex)
-/moller/field/setConfiguration crex
+#### Set B field configuration
+/moller/field/setConfiguration apex
 /moller/field/useQ1fringeField false
 #### Geometry files
-/moller/det/setDetectorFileName geometry/crex.gdml
+/moller/det/setDetectorFileName geometry/apex.gdml
 
 
 /moller/det/setShieldMaterial polyethylene
