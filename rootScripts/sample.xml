@@ -1,0 +1,12 @@
+<Request>
+	<Email email="cameronc@jlab.org" request="false" job="true"/>
+	<Project name="offsets"/>
+	<Track name="analysis"/>
+	<Name name="sample"/>
+	<Command><![CDATA[
+		whoami
+		ls -alF
+		]]></Command>
+	<Job>
+	</Job>
+</Request>
